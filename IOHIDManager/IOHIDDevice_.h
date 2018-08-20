@@ -87,6 +87,8 @@ extern "C" {
 #pragma mark - exported function prototypes
 	//-----------------------------------------------------
 	
+CF_IMPLICIT_BRIDGING_ENABLED
+
 	//*************************************************************************
 	//
 	// HIDIsValidDevice( inIOHIDDeviceRef )
@@ -400,6 +402,9 @@ extern "C" {
 	//
 	
 	extern void IOHIDDevice_SetTransaction(IOHIDDeviceRef inIOHIDDeviceRef, IOHIDTransactionRef inTransactionRef);
+
+CF_IMPLICIT_BRIDGING_DISABLED
+
 	
 	//*****************************************************
 #if PRAGMA_STRUCT_ALIGN

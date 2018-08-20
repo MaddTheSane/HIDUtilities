@@ -85,6 +85,8 @@ extern "C" {
 #pragma mark - exported function prototypes
 	//-----------------------------------------------------
 	
+CF_IMPLICIT_BRIDGING_ENABLED
+
 	//*************************************************************************
 	//
 	// HIDIsValidElement( inIOHIDElementRef )
@@ -317,6 +319,8 @@ extern "C" {
 	extern Boolean IOHIDElement_GetLongProperty(IOHIDElementRef inElementRef, CFStringRef inKey, long *outValue);
 	extern void IOHIDElement_SetLongProperty(IOHIDElementRef inElementRef, CFStringRef inKey, long inValue);
 	
+CF_IMPLICIT_BRIDGING_DISABLED
+
 	//*****************************************************
 #if PRAGMA_STRUCT_ALIGN
 #pragma options align=reset

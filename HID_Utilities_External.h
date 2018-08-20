@@ -94,6 +94,8 @@ extern IOHIDManagerRef gIOHIDManagerRef;
 extern CFMutableArrayRef gDeviceCFArrayRef;
 extern CFArrayRef gElementCFArrayRef;
 
+CF_IMPLICIT_BRIDGING_ENABLED
+
 //*************************************************************************
 //
 // HIDBuildMultiDeviceList( inUsagePages, inUsages, inNumDeviceTypes )
@@ -400,6 +402,8 @@ void HIDSetElementConfig(HID_info_ptr     inHIDInfoPtr,
 // search for matching device
 // return tIOHIDDeviceRef, tIOHIDElementRef and cookie for action
 int HIDGetElementConfig(HID_info_ptr inHIDInfoPtr, IOHIDDeviceRef *outIOHIDDeviceRef, IOHIDElementRef *outIOHIDElementRef);
+
+CF_IMPLICIT_BRIDGING_DISABLED
 
 // ==================================
 
