@@ -256,7 +256,8 @@ Boolean HIDConfigureAction(IOHIDDeviceRef *outIOHIDDeviceRef, IOHIDElementRef *o
 #ifdef DEBUG
 						if ( first ) {
 							IOHIDElementCookie cookie = IOHIDElementGetCookie(tIOHIDElementRef);
-							printf("%s, dev: {ref:%p, ven: 0x%08lX, pro: 0x%08lX}, ele: {ref:%p, cookie: %p, usage:%04lX:%08lX}\n",
+#ifdef __LP64__
+							printf("%s, dev: {ref:%p, ven: 0x%08lX, pro: 0x%08lX}, ele: {ref:%p, cookie: %08X, usage:%04lX:%08lX}\n",
 							       __PRETTY_FUNCTION__,
 							       tIOHIDDeviceRef,
 							       vendorID,
@@ -265,6 +266,17 @@ Boolean HIDConfigureAction(IOHIDDeviceRef *outIOHIDDeviceRef, IOHIDElementRef *o
 							       cookie,
 							       (long unsigned int) usagePage,
 							       (long unsigned int) usage);
+#else
+							printf("%s, dev: {ref:%p, ven: 0x%08lX, pro: 0x%08lX}, ele: {ref:%p, cookie: %p, usage:%04lX:%08lX}\n",
+								   __PRETTY_FUNCTION__,
+								   tIOHIDDeviceRef,
+								   vendorID,
+								   productID,
+								   tIOHIDElementRef,
+								   cookie,
+								   (long unsigned int) usagePage,
+								   (long unsigned int) usage);
+#endif
 							fflush(stdout);
 							if ( (0x054C == vendorID) && (0x0268 == productID) && (0x001E == (UInt32) cookie) ) {
 								//printf( "DING!\n" );
