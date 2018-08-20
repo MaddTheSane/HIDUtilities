@@ -1,5 +1,5 @@
-//	    File: HID_Error_Handler.c
-//	Abstract: Implementation of the HID utilities error handlers
+//	    File: IOHIDLib_.h
+//	Abstract: Single include file for all header files of IOHIDLib
 //	 Version: 2.0
 //	
 //	Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
@@ -43,59 +43,69 @@
 //	Copyright (C) 2009 Apple Inc. All Rights Reserved.
 //	
 //*****************************************************
-#ifdef DEBUG // not used in release
-#if !defined  (kBuildingLibrary)
-#define kVerboseErrors
+#ifndef __IOHIDLib___
+#define __IOHIDLib___
 
-// system includes ----------------------------------------------------------
+//*****************************************************
+#pragma mark - includes & imports
+//-----------------------------------------------------
+#include <IOKit/hid/IOHIDLib.h>
 
-#ifdef kVerboseErrors
-//#include <Carbon/Carbon.h>
+#include "IOHIDDevice_.h"
+#include "IOHIDElement_.h"
+
+#include "ImmrHIDUtilAddOn.h"
+
+//*****************************************************
+#if PRAGMA_ONCE
+#pragma once
 #endif
-#endif // not kBuildingLibrary
-#endif // DEBUG
 
-#include <stdio.h>
-
-// project includes ---------------------------------------------------------
-
-#include "HID_Utilities_External.h"
-
-// globals (internal/private) -----------------------------------------------
-
-// prototypes (internal/private) --------------------------------------------
-
-// functions (internal/private) ---------------------------------------------
-
-#pragma mark -
-// -------------------------------------
-
-// central error reporting
-
-void HIDReportErrorNum(const char *strError, int numError) {
-	char errMsgCStr[256];
+#ifdef __cplusplus
+extern "C" {
+#endif
 	
-	sprintf(errMsgCStr, "%s #%d (0x%x)", strError, numError, numError);
+#if PRAGMA_IMPORT
+#pragma import on
+#endif
 	
-	// out as debug string
-#ifdef kVerboseErrors
-	{
-		fprintf(stderr, errMsgCStr);
-	}
-#endif // kVerboseErrors
-} // HIDReportErrorNum
+#if PRAGMA_STRUCT_ALIGN
+#pragma options align=mac68k
+#elif PRAGMA_STRUCT_PACKPUSH
+#pragma pack(push, 2)
+#elif PRAGMA_STRUCT_PACK
+#pragma pack(2)
+#endif
+	
+	//*****************************************************
+#pragma mark - typedef's, struct's, enums, defines, etc.
+	//-----------------------------------------------------
+	
+	//*****************************************************
+#pragma mark - exported globals
+	//-----------------------------------------------------
+	
+	//*****************************************************
+#pragma mark - exported function prototypes
+	//-----------------------------------------------------
+	
+	//*****************************************************
+#if PRAGMA_STRUCT_ALIGN
+#pragma options align=reset
+#elif PRAGMA_STRUCT_PACKPUSH
+#pragma pack(pop)
+#elif PRAGMA_STRUCT_PACK
+#pragma pack()
+#endif
+	
+#ifdef PRAGMA_IMPORT_OFF
+#pragma import off
+#elif PRAGMA_IMPORT
+#pragma import reset
+#endif
+	
+#ifdef __cplusplus
+}
+#endif
 
-// -------------------------------------
-
-void HIDReportError(const char *strError) {
-	char errMsgCStr[256];
-	
-	sprintf(errMsgCStr, "%s", strError);
-	
-	// out as debug string
-#ifdef kVerboseErrors
-	{
-		fprintf(stderr, errMsgCStr);
-	}
-#endif // kVerboseErrors
-} // HIDReportError
+#endif  // __IOHIDLib___

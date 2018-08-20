@@ -1,5 +1,5 @@
-//	    File: HID_Error_Handler.c
-//	Abstract: Implementation of the HID utilities error handlers
+//	    File: ImmrHIDUtilAddOn.h
+//	Abstract: Glue code to convert IOHIDDeviceRef's to (FFB) io_object_t's
 //	 Version: 2.0
 //	
 //	Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
@@ -43,59 +43,8 @@
 //	Copyright (C) 2009 Apple Inc. All Rights Reserved.
 //	
 //*****************************************************
-#ifdef DEBUG // not used in release
-#if !defined  (kBuildingLibrary)
-#define kVerboseErrors
+#include <IOKit/IOKitLib.h>
+#include <IOKit/hid/IOHIDLib.h>
 
-// system includes ----------------------------------------------------------
-
-#ifdef kVerboseErrors
-//#include <Carbon/Carbon.h>
-#endif
-#endif // not kBuildingLibrary
-#endif // DEBUG
-
-#include <stdio.h>
-
-// project includes ---------------------------------------------------------
-
-#include "HID_Utilities_External.h"
-
-// globals (internal/private) -----------------------------------------------
-
-// prototypes (internal/private) --------------------------------------------
-
-// functions (internal/private) ---------------------------------------------
-
-#pragma mark -
-// -------------------------------------
-
-// central error reporting
-
-void HIDReportErrorNum(const char *strError, int numError) {
-	char errMsgCStr[256];
-	
-	sprintf(errMsgCStr, "%s #%d (0x%x)", strError, numError, numError);
-	
-	// out as debug string
-#ifdef kVerboseErrors
-	{
-		fprintf(stderr, errMsgCStr);
-	}
-#endif // kVerboseErrors
-} // HIDReportErrorNum
-
-// -------------------------------------
-
-void HIDReportError(const char *strError) {
-	char errMsgCStr[256];
-	
-	sprintf(errMsgCStr, "%s", strError);
-	
-	// out as debug string
-#ifdef kVerboseErrors
-	{
-		fprintf(stderr, errMsgCStr);
-	}
-#endif // kVerboseErrors
-} // HIDReportError
+extern io_service_t AllocateHIDObjectFromIOHIDDeviceRef(IOHIDDeviceRef inIOHIDDeviceRef);
+extern bool FreeHIDObject(io_object_t inHIDObject);

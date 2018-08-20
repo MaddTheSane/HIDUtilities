@@ -1,5 +1,5 @@
-//	    File: HID_Error_Handler.c
-//	Abstract: Implementation of the HID utilities error handlers
+//	    File: ImmrHIDUtilAddOn.c
+//	Abstract: Glue code to convert IOHIDDeviceRef's to (FFB) io_object_t's
 //	 Version: 2.0
 //	
 //	Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
@@ -43,59 +43,59 @@
 //	Copyright (C) 2009 Apple Inc. All Rights Reserved.
 //	
 //*****************************************************
-#ifdef DEBUG // not used in release
-#if !defined  (kBuildingLibrary)
-#define kVerboseErrors
+#include <mach/mach.h>
+#include <mach/mach_error.h>
 
-// system includes ----------------------------------------------------------
+#include "ImmrHIDUtilAddOn.h"
 
-#ifdef kVerboseErrors
-//#include <Carbon/Carbon.h>
-#endif
-#endif // not kBuildingLibrary
-#endif // DEBUG
-
-#include <stdio.h>
-
-// project includes ---------------------------------------------------------
-
-#include "HID_Utilities_External.h"
-
-// globals (internal/private) -----------------------------------------------
-
-// prototypes (internal/private) --------------------------------------------
-
-// functions (internal/private) ---------------------------------------------
-
-#pragma mark -
-// -------------------------------------
-
-// central error reporting
-
-void HIDReportErrorNum(const char *strError, int numError) {
-	char errMsgCStr[256];
-	
-	sprintf(errMsgCStr, "%s #%d (0x%x)", strError, numError, numError);
-	
-	// out as debug string
-#ifdef kVerboseErrors
-	{
-		fprintf(stderr, errMsgCStr);
+//---------------------------------------------------------------------------------
+//
+// AllocateHIDObjectFromIOHIDDeviceRef( )
+//
+//	returns:
+//		NULL, or acceptable io_object_t
+//
+//---------------------------------------------------------------------------------
+io_service_t AllocateHIDObjectFromIOHIDDeviceRef(IOHIDDeviceRef inIOHIDDeviceRef) {
+	io_service_t result = 0L;
+	if ( inIOHIDDeviceRef ) {
+		// Set up the matching criteria for the devices we're interested in.
+		// We are interested in instances of class IOHIDDevice.
+		// matchingDict is consumed below( in IOServiceGetMatchingService )
+		// so we have no leak here.
+		CFMutableDictionaryRef matchingDict = IOServiceMatching(kIOHIDDeviceKey);
+		if ( matchingDict ) {
+			// Add a key for locationID to our matching dictionary.  This works for matching to
+			// IOHIDDevices, so we will only look for a device attached to that particular port
+			// on the machine.
+			CFTypeRef tCFTypeRef = IOHIDDeviceGetProperty( inIOHIDDeviceRef, CFSTR(kIOHIDLocationIDKey) );
+			if ( tCFTypeRef ) {
+				CFDictionaryAddValue(matchingDict, CFSTR(kIOHIDLocationIDKey), tCFTypeRef);
+				// CFRelease( tCFTypeRef );	// don't release objects that we "Get".
+				
+				// IOServiceGetMatchingService assumes that we already know that there is only one device
+				// that matches.  This way we don't have to do the whole iteration dance to look at each
+				// device that matches.  This is a new API in 10.2
+				result = IOServiceGetMatchingService(kIOMasterPortDefault, matchingDict);
+			}
+			
+			// Note: We're not leaking the matchingDict.
+			// One reference is consumed by IOServiceGetMatchingServices
+		}
 	}
-#endif // kVerboseErrors
-} // HIDReportErrorNum
-
-// -------------------------------------
-
-void HIDReportError(const char *strError) {
-	char errMsgCStr[256];
 	
-	sprintf(errMsgCStr, "%s", strError);
+	return (result);
+}   // AllocateHIDObjectFromIOHIDDeviceRef
+
+//---------------------------------------------------------------------------------
+//
+// FreeHIDObject( )
+//
+//---------------------------------------------------------------------------------
+bool FreeHIDObject(io_service_t inHIDObject) {
+	kern_return_t kr;
 	
-	// out as debug string
-#ifdef kVerboseErrors
-	{
-		fprintf(stderr, errMsgCStr);
-	}
-#endif // kVerboseErrors
-} // HIDReportError
+	kr = IOObjectRelease(inHIDObject);
+	
+	return (kIOReturnSuccess == kr);
+} // FreeHIDObject
