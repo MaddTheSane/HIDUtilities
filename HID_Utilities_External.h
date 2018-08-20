@@ -96,96 +96,86 @@ extern CFArrayRef gElementCFArrayRef;
 
 CF_IMPLICIT_BRIDGING_ENABLED
 
-//*************************************************************************
-//
-// HIDBuildMultiDeviceList( inUsagePages, inUsages, inNumDeviceTypes )
-//
-// Purpose:	builds list of devices with elements (allocates memory and captures devices) in which
-//			the devices could be of different types/usages list is allocated internally within HID
-//			Utilites and can be accessed via accessor functions structures within list are considered
-//			flat and user accessable, but not user modifiable can be called again to rebuild list to
-//			account for new devices (will do the right thing in case of disposing existing list)
-//			usagePage, usage are each a numDeviceTypes sized array of matching usage and usage pages
-//			returns true if succesful
-//
-// Inputs:	inUsagePages		- inNumDeviceTypes sized array of matching usage pages
-//			inUsages			- inNumDeviceTypes sized array of matching usages
-//			inNumDeviceTypes	- number of usage pages & usages
-//
-// Returns:	Boolean				- if successful
-//
+//! @function HIDBuildMultiDeviceList( inUsagePages, inUsages, inNumDeviceTypes )
+//! @discussion	Builds list of devices with elements (allocates memory and captures devices) in which
+//!				the devices could be of different types/usages list is allocated internally within HID
+//!				Utilites and can be accessed via accessor functions structures within list are considered
+//!				flat and user accessable, but not user modifiable can be called again to rebuild list to
+//!				account for new devices (will do the right thing in case of disposing existing list)
+//!				usagePage, usage are each a numDeviceTypes sized array of matching usage and usage pages
+//!				returns true if succesful
+//! @param	inUsagePages		\c inNumDeviceTypes sized array of matching usage pages
+//! @param	inUsages			\c inNumDeviceTypes sized array of matching usages
+//! @param	inNumDeviceTypes	number of usage pages & usages
+//! @return \c TRUE if successful
 extern Boolean HIDBuildMultiDeviceList(const UInt32 *inUsagePages, const UInt32 *inUsages, int inNumDeviceTypes);
 
-// same as above but this uses a single usagePage and usage
+//! Same as above but this uses a single \c usagePage and \c usage
 extern Boolean HIDBuildDeviceList(UInt32 usagePage, UInt32 usage);
 
-// updates the current device list for any new/removed devices
-// if this is called before HIDBuildDeviceList the it functions like HIDBuildMultiDeviceList
-// usagePage, usage are each a numDeviceTypes sized array of matching usage and usage pages
-// returns true if successful which means if any device were added or removed (the device config changed)
+//! Updates the current device list for any new/removed devices.
+//! If this is called before \c HIDBuildDeviceList the it functions like \c HIDBuildMultiDeviceList
+//! usagePage, usage are each a \c numDeviceTypes sized array of matching usage and usage pages
+//! @param usagePage is a \c numDeviceTypes sized array of usage pages
+//! @param usage is a \c numDeviceTypes sized array of usage
+//! @return \c true if successful which means if any device were added or removed (the device config changed)
 extern Boolean HIDUpdateDeviceList(const UInt32 *inUsagePages, const UInt32 *inUsages, int inNumDeviceTypes);
 
-// release list built by above function
-// MUST be called prior to application exit to properly release devices
-// if not called (or app crashes) devices can be recovered by pluging into different location in USB chain
+//! release list built by above function.
+//! \b Must be called prior to application exit to properly release devices.
+//! if not called (or app crashes) devices can be recovered by pluging into different location in USB chain.
 extern void HIDReleaseDeviceList(void);
 
-//*************************************************************************
-//
-// HIDRebuildDevices(  )
-//
-// Purpose:	rebuilds the (internal) list of devices
-//
-// Inputs:	none
-//
-// Returns:	none
-//
-
+//! @function HIDRebuildDevices(  )
+//! @brief Rebuilds the (internal) list of devices.
 extern void HIDRebuildDevices(void);
 
-// does a device list exist
+//! Does a device list exist?
 extern Boolean HIDHaveDeviceList(void);
 
-// how many HID devices have been found
-// returns 0 if no device list exist
+//! How many HID devices have been found.
+//! Returns 0 if no device list exist.
+//! @return 0 if no device list exist, or the number of device lists.
 extern UInt32 HIDCountDevices(void);
 
-// how many elements does a specific device have
-// returns 0 if device is invalid or NULL
-// uses mask of HIDElementTypeMask to restrict element found
-// use kHIDElementTypeIO to get non-collection elements
+//! how many elements does a specific device have
+//! returns \c 0 if device is invalid or NULL
+//! uses mask of \c HIDElementTypeMask to restrict element found
+//! use \c kHIDElementTypeIO to get non-collection elements
 extern UInt32 HIDCountDeviceElements(IOHIDDeviceRef inIOHIDDeviceRef, HIDElementTypeMask typeMask);
 
-// get the first device in the device list
-// returns NULL if no list exists
+//! Get the first device in the device list.
+//! returns \c NULL if no list exists.
+//! @return The start of the device list, or \c NULL if no list exists.
 extern IOHIDDeviceRef HIDGetFirstDevice(void);
 
-// get next device in list given current device as parameter
-// returns NULL if end of list
+//! Get next device in list given current device as parameter.
+//! returns \c NULL if end of list.
+//! @return The next device in the list, or \c NULL if end of list.
 extern IOHIDDeviceRef HIDGetNextDevice(IOHIDDeviceRef inIOHIDDeviceRef);
 
-// get the first element of device passed in as parameter
-// returns NULL if no list exists or device does not exists or is NULL
-// uses mask of HIDElementTypeMask to restrict element found
-// use kHIDElementTypeIO to get previous HIDGetFirstDeviceElement functionality
+//! get the first element of device passed in as parameter
+//! returns NULL if no list exists or device does not exists or is NULL
+//! uses mask of HIDElementTypeMask to restrict element found
+//! use kHIDElementTypeIO to get previous HIDGetFirstDeviceElement functionality
 extern IOHIDElementRef HIDGetFirstDeviceElement(IOHIDDeviceRef inIOHIDDeviceRef, HIDElementTypeMask typeMask);
 
-// get next element of given device in list given current element as parameter
-// will walk down each collection then to next element or collection (depthwise traverse)
-// returns NULL if end of list
-// uses mask of HIDElementTypeMask to restrict element found
-// use kHIDElementTypeIO to get previous HIDGetNextDeviceElement functionality
+//! get next element of given device in list given current element as parameter
+//! will walk down each collection then to next element or collection (depthwise traverse)
+//! returns NULL if end of list
+//! uses mask of HIDElementTypeMask to restrict element found
+//! use kHIDElementTypeIO to get previous HIDGetNextDeviceElement functionality
 extern IOHIDElementRef HIDGetNextDeviceElement(IOHIDElementRef inIOHidElementRef, HIDElementTypeMask typeMask);
 
-// get previous element of given device in list given current element as parameter
-// this walks directly up the tree to the top element and does not search at each level
-// returns NULL if beginning of list
-// uses mask of HIDElementTypeMask to restrict element found
-// use kHIDElementTypeIO to get non-collection elements
+//! get previous element of given device in list given current element as parameter
+//! this walks directly up the tree to the top element and does not search at each level
+//! returns NULL if beginning of list
+//! uses mask of HIDElementTypeMask to restrict element found
+//! use kHIDElementTypeIO to get non-collection elements
 extern IOHIDElementRef HIDGetPreviousDeviceElement(IOHIDElementRef inIOHidElementRef, HIDElementTypeMask typeMask);
 
-// returns C string type name given a type enumeration passed in as parameter( see IOHIDKeys.h )
-// returns empty string for invalid types
+//! returns C string type name given a type enumeration passed in as parameter( see IOHIDKeys.h )
+//! returns empty string for invalid types
 extern void HIDGetTypeName(IOHIDElementType inIOHIDElementType, char *outCStrName);
 
 //*************************************************************************
@@ -209,8 +199,8 @@ extern CFStringRef HIDCopyUsageName(long inUsagePage, long inUsage);
 // Element Event Queue and Value Interfaces
 
 enum {
-	kDefaultUserMin = 0,                    // default user min and max used for scaling
-	kDefaultUserMax = 255
+	kDefaultUserMin = 0,                    //!< default user min used for scaling
+	kDefaultUserMax = 255                   //!< default user max used for scaling
 };
 
 enum {
@@ -222,23 +212,23 @@ enum {
 
 // ==================================
 
-// queues specific element, performing any device queue set up required
+//! queues specific element, performing any device queue set up required
 extern int  HIDQueueElement(IOHIDDeviceRef inIOHIDDeviceRef, IOHIDElementRef inIOHidElementRef);
 
-// adds all elements to queue, performing any device queue set up required
+//! adds all elements to queue, performing any device queue set up required
 extern int  HIDQueueDevice(IOHIDDeviceRef inIOHIDDeviceRef);
 
-// removes element for queue, if last element in queue will release queue and device
+//! removes element for queue, if last element in queue will release queue and device
 extern int  HIDDequeueElement(IOHIDDeviceRef inIOHIDDeviceRef, IOHIDElementRef inIOHidElementRef);
 
-// completely removes all elements from queue and releases queue and device
+//! completely removes all elements from queue and releases queue and device
 extern int  HIDDequeueDevice(IOHIDDeviceRef inIOHIDDeviceRef);
 
-// releases all device queues for quit or rebuild (must be called)
+//! releases all device queues for quit or rebuild (must be called)
 extern int  HIDReleaseAllDeviceQueues(void);
 
-// returns true if an event is avialable for the element and fills out *pHIDEvent structure, returns false otherwise
-// pHIDEvent is a poiner to a IOHIDEventStruct, using void here for compatibility, users can cast a required
+//! returns true if an event is avialable for the element and fills out *pHIDEvent structure, returns false otherwise
+//! pHIDEvent is a poiner to a IOHIDEventStruct, using void here for compatibility, users can cast a required
 extern Boolean HIDGetEvent(IOHIDDeviceRef inIOHIDDeviceRef, IOHIDValueRef *pIOHIDValueRef);
 
 // ==================================
@@ -246,7 +236,7 @@ extern Boolean HIDGetEvent(IOHIDDeviceRef inIOHIDDeviceRef, IOHIDValueRef *pIOHI
 // Conguration and Save Interfaces
 
 enum {
-	kPercentMove = 10 // precent of overall range a element must move to register
+	kPercentMove = 10 //!< precent of overall range a element must move to register
 };
 
 typedef struct HID_info_struct {
@@ -262,23 +252,23 @@ typedef struct HID_info_struct {
 	struct {
 		uint32_t usagePage, usage;
 		CFIndex minReport, maxReport;
-		IOHIDElementCookie cookie; // always 32 bits
+		IOHIDElementCookie cookie; //!< always 32 bits
 	} element;
 }HID_info_rec, *HID_info_ptr;
 
-// get vendor name from vendor ID
+//! get vendor name from vendor ID
 extern Boolean HIDGetVendorNameFromVendorID(long inVendorID, char *outCStrName);
 
-// get product name from vendor/product ID
+//! get product name from vendor/product ID
 extern Boolean HIDGetProductNameFromVendorProductID(long inVendorID, long inProductID, char *outCStrName);
 
-// get element name from vendor id/product id look up ( using element cookie )
+//! get element name from vendor id/product id look up ( using element cookie )
 extern Boolean HIDGetElementNameFromVendorProductCookie(int                inVendorID,
 														int                inProductID,
 														IOHIDElementCookie inCookie,
 														char *             outCStrName);
 
-// get element name from vendor id/product id look up ( using element usage page & usage )
+//! get element name from vendor id/product id look up ( using element usage page & usage )
 extern Boolean HIDGetElementNameFromVendorProductUsage(long  inVendorID,
 													   long  inProductID,
 													   long  inUsagePage,
@@ -290,29 +280,21 @@ extern void HIDDumpDeviceInfo(IOHIDDeviceRef inIOHIDDeviceRef);
 extern void HIDDumpElementInfo(IOHIDElementRef inIOHIDElementRef);
 extern void HIDDumpElementCalibrationInfo(IOHIDElementRef inIOHIDElementRef);
 
-// polls single device's elements for a change greater than kPercentMove.  Times out after given time
-// returns 1 and pointer to element if found
-// returns 0 and NULL for both parameters if not found
+//! Polls single device's elements for a change greater than kPercentMove.  Times out after given time.
+//! returns 1 and pointer to element if found.
+//! returns 0 and \c NULL for both parameters if not found.
 extern unsigned char HIDConfigureSingleDeviceAction(IOHIDDeviceRef   inIOHIDDeviceRef,
 													IOHIDElementRef *outIOHIDElementRef,
 													float            timeout);
 
-//*************************************************************************
-//
-// HIDConfigureAction( outDeviceRef, outElementRef, inTimeout )
-//
-// Purpose:	polls all devices and elements for a change greater than kPercentMove.
-//			Times out after given time returns 1 and pointer to device and element
-//			if found; returns 0 and NULL for both parameters if not found
-//
-// Inputs:	outDeviceRef	- address where to store the device
-//			outElementRef	- address where to store the element
-//			inTimeout		- the timeout
-// Returns:	Boolean			- TRUE if successful
-//			outDeviceRef	- the device
-//			outElementRef	- the element
-//
-
+//! @function HIDConfigureAction( outDeviceRef, outElementRef, inTimeout )
+//! @discussion		Polls all devices and elements for a change greater than kPercentMove.
+//!					Times out after given time. Returns \c TRUE and pointer to device and element
+//!					if found; returns \c FALSE and \c NULL for both parameters if not found
+//! @param	outDeviceRef	address where to store the device
+//! @param	outElementRef	address where to store the element
+//! @param	inTimeout		the timeout
+//! @return	\c TRUE if successful.
 extern Boolean HIDConfigureAction(IOHIDDeviceRef *outDeviceRef, IOHIDElementRef *outElementRef, float inTimeout);
 
 //*************************************************************************
@@ -378,39 +360,39 @@ extern Boolean HIDFindDeviceAndElement(const HID_info_rec *inSearchInfo,
 // -- These are routines to use if the applcationwants HID Utilities to do the file handling --
 // Note: the FILE * is a MachO posix FILE and will not likely work directly with MW MSL FILE * type.
 
-// take input records, save required info
-// assume file is open and at correct position.
+//! take input records, save required info
+//! assume file is open and at correct position.
 void HIDSaveElementConfig(FILE *fileRef, IOHIDDeviceRef inIOHIDDeviceRef, IOHIDElementRef inIOHidElementRef, int actionCookie);
 
-// takes a file, reads one record (assume file position is correct and file is open)
-// search for matching device
-// return tIOHIDDeviceRef, tIOHIDElementRef and cookie for action
+//! takes a file, reads one record (assume file position is correct and file is open)
+//! search for matching device
+//! return tIOHIDDeviceRef, tIOHIDElementRef and cookie for action
 int HIDRestoreElementConfig(FILE *fileRef, IOHIDDeviceRef *outIOHIDDeviceRef, IOHIDElementRef *outIOHIDElementRef);
 
 // -- These are routines to use if the client wants to use their own file handling --
 
-// Set up a config record for saving
-// takes an input records, returns record user can save as they want
-// Note: the save rec must be pre-allocated by the calling app and will be filled out
+//! Set up a config record for saving
+//! takes an input records, returns record user can save as they want
+//! Note: the save rec must be pre-allocated by the calling app and will be filled out
 void HIDSetElementConfig(HID_info_ptr     inHIDInfoPtr,
 						 IOHIDDeviceRef  inIOHIDDeviceRef,
 						 IOHIDElementRef inIOHidElementRef,
 						 int             actionCookie);
 
-// Get matching element from config record
-// takes a pre-allocated and filled out config record
-// search for matching device
-// return tIOHIDDeviceRef, tIOHIDElementRef and cookie for action
+//! Get matching element from config record
+//! takes a pre-allocated and filled out config record
+//! search for matching device
+//! return tIOHIDDeviceRef, tIOHIDElementRef and cookie for action
 int HIDGetElementConfig(HID_info_ptr inHIDInfoPtr, IOHIDDeviceRef *outIOHIDDeviceRef, IOHIDElementRef *outIOHIDElementRef);
 
 CF_IMPLICIT_BRIDGING_DISABLED
 
 // ==================================
 
-// Error reporter, can be set to report however the application desires
+//! Error reporter, can be set to report however the application desires
 extern void HIDReportError(const char *strError);
 
-// Error with numeric code reporter, can be set to report however the application desires
+//! Error with numeric code reporter, can be set to report however the application desires
 extern void HIDReportErrorNum(const char *strError, int numError);
 
 #ifdef __cplusplus
