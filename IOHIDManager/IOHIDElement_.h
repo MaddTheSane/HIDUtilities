@@ -87,236 +87,122 @@ extern "C" {
 	
 CF_IMPLICIT_BRIDGING_ENABLED
 
-	//*************************************************************************
-	//
-	// HIDIsValidElement( inIOHIDElementRef )
-	//
-	// Purpose:	validate this element
-	//
-	// Inputs:	inIOHIDElementRef	- the element
-	//
-	// Returns:	Boolean			- TRUE if this is a valid element ref
-	//
+	//! @function HIDIsValidElement( inIOHIDElementRef )
+	//! @brief Validate this element.
+	//! @param inIOHIDElementRef The element.
+	//! @return \c TRUE if this is a valid element ref.
 	extern Boolean HIDIsValidElement(IOHIDElementRef inIOHIDElementRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDElement_GetValue( inElementRef, inIOHIDValueScaleType )
-	//
-	// Purpose:	returns the current value for an element( polling )
-	//
-	// Notes:	will return 0 on error conditions which should be accounted for by application
-	//
-	// Inputs:	inElementRef	- the element
-	//			inIOHIDValueScaleType	- scale type ( calibrated or physical )
-	//
-	// Returns:	double		- current value for element
-	//
+	//! @function IOHIDElement_GetValue( inElementRef, inIOHIDValueScaleType )
+	//! @brief Returns the current value for an element( polling )
+	//! @discussion Will return 0 on error conditions which should be accounted for by application.
+	//! @param inElementRef The element.
+	//!	@param inIOHIDValueScaleType Scale type (calibrated or physical).
+	//! @return current value for element.
 	extern double IOHIDElement_GetValue(IOHIDElementRef inElementRef, IOHIDValueScaleType inIOHIDValueScaleType);
 	
-	//*************************************************************************
-	//
-	// IOHIDElement_GetCalibrationMin( inElementRef )
-	//
-	// Purpose:	get the minimum bounds for a calibrated value for this element
-	//
-	// Inputs:  inElementRef - the IOHIDElementRef for this element
-	//
-	// Returns:	CFIndex - the minimum Calibration value for this element
-	//
-	
+	//! @function IOHIDElement_GetCalibrationMin( inElementRef )
+	//! @brief Get the minimum bounds for a calibrated value for this element.
+	//! @param inElementRef The \c IODHIDDeviceRef for this element.
+	//! @return the minimum Calibration value for this element.
 	extern CFIndex  IOHIDElement_GetCalibrationMin(IOHIDElementRef inElementRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDElement_SetCalibrationMin( inElementRef, inValue )
-	//
-	// Purpose:	set the minimum bounds for a calibrated value for this element
-	//
-	// Inputs:  inElementRef	- the IOHIDElementRef for this element
-	//			inValue			- the minimum bounds for a calibrated value for this element
-	//
-	// Returns:	nothing
-	//
-	
+	//! @function IOHIDElement_SetCalibrationMin( inElementRef, inValue )
+	//! @brief Set the minimum bounds for a calibrated value for this element.
+	//! @param inElementRef The \c IOHIDElementRef for this element.
+	//! @param inValue The minimum bounds for a calibrated value for this element.
 	extern void IOHIDElement_SetCalibrationMin(IOHIDElementRef inElementRef, CFIndex inValue);
 	
-	//*************************************************************************
-	//
-	// IOHIDElement_GetCalibrationMax( inElementRef )
-	//
-	// Purpose:	get the maximum bounds for a calibrated value for this element
-	//
-	// Inputs:  inElementRef - the IOHIDElementRef for this element
-	//
-	// Returns:	CFIndex - the maximum Calibration value for this element
-	//
-	
+	//! @function IOHIDElement_GetCalibrationMax( inElementRef )
+	//! @brief Get the maximum bounds for a calibrated value for this element.
+	//! @param inElementRef The \c IODHIDDeviceRef for this element.
+	//! @return the maximum Calibration value for this element.
 	extern CFIndex  IOHIDElement_GetCalibrationMax(IOHIDElementRef inElementRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDElement_SetCalibrationMax( inElementRef, inValue )
-	//
-	// Purpose:	set the maximum bounds for a calibrated value for this element
-	//
-	// Inputs:  inElementRef	- the IOHIDElementRef for this element
-	//			inValue			- the maximum Calibration value for this element
-	//
-	// Returns:	nothing
-	//
-	
+	//! @function IOHIDElement_SetCalibrationMax( inElementRef, inValue )
+	//! @brief Set the maximum bounds for a calibrated value for this element.
+	//! @param inElementRef The \c IOHIDElementRef for this element.
+	//! @param inValue The maximum Calibration value for this element.
 	extern void IOHIDElement_SetCalibrationMax(IOHIDElementRef inElementRef, CFIndex inValue);
 	
-	//*************************************************************************
-	//
-	// IOHIDElement_GetCalibrationSaturationMin( inElementRef )
-	//
-	// Purpose:	get the mininum tolerance to be used when calibrating a logical element value
-	//
-	// Inputs:  inElementRef - the IOHIDElementRef for this element
-	//
-	// Returns:	CFIndex - the maximum Calibration value for this element
-	//
-	
+	//! @function IOHIDElement_GetCalibrationSaturationMin( inElementRef )
+	//! @brief Get the mininum tolerance to be used when calibrating a logical element value.
+	//! @param inElementRef The \c IODHIDDeviceRef for this element.
+	//! @return the maximum Calibration value for this element.
 	extern CFIndex  IOHIDElement_GetCalibrationSaturationMin(IOHIDElementRef inElementRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDElement_SetCalibrationSaturationMin( inElementRef, inValue )
-	//
-	// Purpose:	set the mininum tolerance to be used when calibrating a logical element value
-	//
-	// Inputs:  inElementRef	- the IOHIDElementRef for this element
-	//			inValue			- the maximum Calibration value for this element
-	//
-	// Returns:	nothing
-	//
-	
+	//! @function IOHIDElement_SetCalibrationSaturationMin( inElementRef, inValue )
+	//! @brief Set the mininum tolerance to be used when calibrating a logical element value.
+	//! @param inElementRef The \c IOHIDElementRef for this element.
+	//! @param inValue The maximum Calibration value for this element.
 	extern void IOHIDElement_SetCalibrationSaturationMin(IOHIDElementRef inElementRef, CFIndex inValue);
 	
-	//*************************************************************************
-	//
-	// IOHIDElement_GetCalibrationSaturationMax( inElementRef )
-	//
-	// Purpose:	get the maximum tolerance to be used when calibrating a logical element value
-	//
-	// Inputs:  inElementRef - the IOHIDElementRef for this element
-	//
-	// Returns:	CFIndex - the maximum Calibration value for this element
-	//
-	
+	//! @function IOHIDElement_GetCalibrationSaturationMax( inElementRef )
+	//! @brief Get the maximum tolerance to be used when calibrating a logical element value.
+	//! @param inElementRef The \c IODHIDDeviceRef for this element.
+	//! @return the maximum Calibration value for this element.
 	extern CFIndex  IOHIDElement_GetCalibrationSaturationMax(IOHIDElementRef inElementRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDElement_SetCalibrationSaturationMax( inElementRef, inValue )
-	//
-	// Purpose:	set the maximum tolerance to be used when calibrating a logical element value
-	//
-	// Inputs:  inElementRef	- the IOHIDElementRef for this element
-	//			inValue			- the maximum Calibration value for this element
-	//
-	// Returns:	nothing
-	//
-	
+	//! @function IOHIDElement_SetCalibrationSaturationMax( inElementRef, inValue )
+	//! @brief Set the maximum tolerance to be used when calibrating a logical element value.
+	//! @param inElementRef The \c IOHIDElementRef for this element.
+	//! @param inValue The maximum Calibration value for this element.
 	extern void IOHIDElement_SetCalibrationSaturationMax(IOHIDElementRef inElementRef, CFIndex inValue);
 	
-	//*************************************************************************
-	//
-	// IOHIDElement_GetCalibrationDeadZoneMin( inElementRef )
-	//
-	// Purpose:	get the minimum bounds near the midpoint of a logical value in which the value is ignored
-	//
-	// Inputs:  inElementRef - the IOHIDElementRef for this element
-	//
-	// Returns:	CFIndex - the maximum Calibration value for this element
-	//
-	
+	//! @function IOHIDElement_GetCalibrationDeadZoneMin( inElementRef )
+	//! @brief Get the minimum bounds near the midpoint of a logical value in which the value is ignored.
+	//! @param inElementRef The \c IODHIDDeviceRef for this element.
+	//! @return the maximum Calibration value for this element.
 	extern CFIndex  IOHIDElement_GetCalibrationDeadZoneMin(IOHIDElementRef inElementRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDElement_SetCalibrationDeadZoneMin( inElementRef, inValue )
-	//
-	// Purpose:	set the minimum bounds near the midpoint of a logical value in which the value is ignored
-	//
-	// Inputs:  inElementRef	- the IOHIDElementRef for this element
-	//			inValue			- the maximum Calibration value for this element
-	//
-	// Returns:	nothing
-	//
-	
+	//! @function IOHIDElement_SetCalibrationDeadZoneMin( inElementRef, inValue )
+	//! @brief Set the minimum bounds near the midpoint of a logical value in which the value is ignored.
+	//! @param inElementRef The \c IOHIDElementRef for this element.
+	//! @param inValue The maximum Calibration value for this element.
 	extern void IOHIDElement_SetCalibrationDeadZoneMin(IOHIDElementRef inElementRef, CFIndex inValue);
 	
-	//*************************************************************************
-	//
-	// IOHIDElement_GetCalibrationDeadZoneMax( inElementRef )
-	//
-	// Purpose:	get the maximum bounds near the midpoint of a logical value in which the value is ignored
-	//
-	// Inputs:  inElementRef - the IOHIDElementRef for this element
-	//
-	// Returns:	CFIndex - the maximum Calibration value for this element
-	//
-	
+	//! @function IOHIDElement_GetCalibrationDeadZoneMax( inElementRef )
+	//! @brief Get the maximum bounds near the midpoint of a logical value in which the value is ignored.
+	//! @param inElementRef The \c IODHIDDeviceRef for this element.
+	//! @return the maximum Calibration value for this element.
 	extern CFIndex  IOHIDElement_GetCalibrationDeadZoneMax(IOHIDElementRef inElementRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDElement_SetCalibrationDeadZoneMax( inElementRef, inValue )
-	//
-	// Purpose:	set the maximum bounds near the midpoint of a logical value in which the value is ignored
-	//
-	// Inputs:  inElementRef	- the IOHIDElementRef for this element
-	//			inValue			- the maximum Calibration value for this element
-	//
-	// Returns:	nothing
-	//
-	
+	//! @function IOHIDElement_SetCalibrationDeadZoneMax( inElementRef, inValue )
+	//! @brief Set the maximum bounds near the midpoint of a logical value in which the value is ignored.
+	//! @param inElementRef The \c IODHIDDeviceRef for this element.
+	//! @param inValue The maximum Calibration value for this element.
 	extern void IOHIDElement_SetCalibrationDeadZoneMax(IOHIDElementRef inElementRef, CFIndex inValue);
 	
-	//*************************************************************************
-	//
-	// IOHIDElement_GetCalibrationGranularity( inElementRef )
-	//
-	// Purpose:	get the level of detail returned for a calibrated element value
-	//
-	// Inputs:  inElementRef - the IOHIDElementRef for this element
-	//
-	// Returns:	double_t - the maximum Calibration value for this element
-	//
-	
+	//! @function IOHIDElement_GetCalibrationGranularity( inElementRef )
+	//! @brief Get the level of detail returned for a calibrated element value.
+	//! @param inElementRef The \c IODHIDDeviceRef for this element.
+	//! @return the maximum Calibration value for this element.
 	extern double_t  IOHIDElement_GetCalibrationGranularity(IOHIDElementRef inElementRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDElement_SetCalibrationGranularity( inElementRef, inValue )
-	//
-	// Purpose:	set the level of detail returned for a calibrated element value
-	//
-	// Inputs:  inElementRef	- the IOHIDElementRef for this element
-	//			inValue			- the the level of detail for this element
-	//
-	// Returns:	nothing
-	//
-	
+	//! IOHIDElement_SetCalibrationGranularity( inElementRef, inValue )
+	//! @brief Set the level of detail returned for a calibrated element value.
+	//! @param inElementRef The \c IODHIDDeviceRef for this element.
+	//! @param inValue The the level of detail for this element.
 	extern void IOHIDElement_SetCalibrationGranularity(IOHIDElementRef inElementRef, double_t inValue);
 	
-	//*************************************************************************
-	//
-	// IOHIDElement_SetupCalibration( inElementRef )
-	//
-	// Purpose:	set default values for the element calibration parameters
-	//
-	// Inputs:  inElementRef	- the IOHIDElementRef for this element
-	//
-	// Returns:	nothing
-	//
-	
+	//! @function IOHIDElement_SetupCalibration( inElementRef )
+	//! @brief Set default values for the element calibration parameters.
+	//! @param inElementRef The \c IODHIDDeviceRef for this element.
 	extern void IOHIDElement_SetupCalibration(IOHIDElementRef inIOHIDElementRef);
 	
+	//! @function IOHIDElement_GetLongProperty( inElementRef, inKey, outValue )
+	//! @brief Convenience function to return a long property of an element.
+	//! @param inElementRef	The element.
+	//! @param inKey \c CFString for the key.
+	//! @param outValue Address where to store the property's value.
+	//! @return \c TRUE if successful, \c FALSE if not.
 	extern Boolean IOHIDElement_GetLongProperty(IOHIDElementRef inElementRef, CFStringRef inKey, long *outValue);
+	
+	//! @function IOHIDElement_SetLongProperty( inElementRef, inKey, inValue )
+	//! @brief Convenience function to set a long property of an element.
+	//! @param inElementRef The element.
+	//! @param inKey \c CFString for the key.
+	//! @param inValue The value to set it to.
 	extern void IOHIDElement_SetLongProperty(IOHIDElementRef inElementRef, CFStringRef inKey, long inValue);
 	
 CF_IMPLICIT_BRIDGING_DISABLED

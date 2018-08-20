@@ -89,318 +89,148 @@ extern "C" {
 	
 CF_IMPLICIT_BRIDGING_ENABLED
 
-	//*************************************************************************
-	//
-	// HIDIsValidDevice( inIOHIDDeviceRef )
-	//
-	// Purpose:	validate this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	Boolean			- TRUE if we find the device in our( internal ) device list
-	//
-	
+	//! @function HIDIsValidDevice( inIOHIDDeviceRef )
+	//! @brief Validate this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return \c TRUE if we find the device in our (internal) device list.
 	extern Boolean HIDIsValidDevice(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetTransport( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the Transport CFString for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	CFStringRef - the Transport CFString for this device
-	//
-	
+	//! @function IOHIDDevice_GetTransport( inIOHIDDeviceRef )
+	//! @brief Get the Transport \c CFString for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return	the Transport \c CFString for this device.
 	extern CFStringRef IOHIDDevice_GetTransport(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetVendorID( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the vendor ID for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	long - the vendor ID for this device
-	//
-	
+	//! @function IOHIDDevice_GetVendorID( inIOHIDDeviceRef )
+	//! @brief Get the vendor ID for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return the vendor ID for this device.
 	extern int IOHIDDevice_GetVendorID(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetVendorIDSource( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the VendorIDSource for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	long - the VendorIDSource for this device
-	//
-	
+	//! @function IOHIDDevice_GetVendorIDSource( inIOHIDDeviceRef )
+	//! @brief Get the VendorIDSource for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return	The VendorIDSource for this device.
 	extern long IOHIDDevice_GetVendorIDSource(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetProductID( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the product ID for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	long - the product ID for this device
-	//
-	
+	//! @function IOHIDDevice_GetProductID( inIOHIDDeviceRef )
+	//! @brief get the product ID for this device.
+	//! @param inIOHIDDeviceRef the \c IODHIDDeviceRef for this device.
+	//! @return The product ID for this device.
 	extern int IOHIDDevice_GetProductID(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetVersionNumber( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the VersionNumber CFString for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	long - the VersionNumber for this device
-	//
-	
+	//! @function IOHIDDevice_GetVersionNumber( inIOHIDDeviceRef )
+	//! @brief Get the VersionNumber CFString for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return the VersionNumber for this device.
 	extern long IOHIDDevice_GetVersionNumber(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetManufacturer( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the Manufacturer CFString for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	CFStringRef - the Manufacturer CFString for this device
-	//
-	
+	//! @function IOHIDDevice_GetManufacturer( inIOHIDDeviceRef )
+	//! @brief Get the Manufacturer \c CFString for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return The Manufacturer CFString for this device.
 	extern CFStringRef IOHIDDevice_GetManufacturer(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetProduct( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the Product CFString for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	CFStringRef - the Product CFString for this device
-	//
-	
+	//! @function IOHIDDevice_GetProduct( inIOHIDDeviceRef )
+	//! @brief Tet the Product \c CFString for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return the Product CFString for this device.
 	extern CFStringRef IOHIDDevice_GetProduct(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetSerialNumber( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the SerialNumber CFString for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	CFStringRef - the SerialNumber CFString for this device
-	//
-	
+	//! @function IOHIDDevice_GetSerialNumber( inIOHIDDeviceRef )
+	//! @brief Get the SerialNumber \c CFString for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return the SerialNumber CFString for this device.
 	extern CFStringRef IOHIDDevice_GetSerialNumber(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetCountryCode( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the CountryCode CFString for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	long - the CountryCode for this device
-	//
-	
+	//! @function IOHIDDevice_GetCountryCode( inIOHIDDeviceRef )
+	//! @brief Get the CountryCode CFString for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return the CountryCode for this device.
 	extern long IOHIDDevice_GetCountryCode(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetLocationID( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the location ID for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	long - the location ID for this device
-	//
-	
+	//! @function IOHIDDevice_GetLocationID( inIOHIDDeviceRef )
+	//! @brief Get the location ID for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return the location ID for this device.
 	extern int IOHIDDevice_GetLocationID(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetUsage( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the usage for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	uint32_t - the usage for this device
-	//
-	
+	//! @function IOHIDDevice_GetUsage( inIOHIDDeviceRef )
+	//! @brief Get the usage for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return the usage for this device.
 	extern uint32_t IOHIDDevice_GetUsage(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetUsagePage( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the usage page for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	uint32_t - the usage page for this device
-	//
-	
+	//! @function IOHIDDevice_GetUsagePage( inIOHIDDeviceRef )
+	//! @brief Get the usage page for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return the usage page for this device.
 	extern uint32_t IOHIDDevice_GetUsagePage(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetUsagePairs( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the UsagePairs CFString for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	CFArrayRef - the UsagePairs for this device
-	//
-	
+	//! @function IOHIDDevice_GetUsagePairs( inIOHIDDeviceRef )
+	//! @brief Get the UsagePairs \c CFArray for this device
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device
+	//! @return the UsagePairs for this device
 	extern CFArrayRef IOHIDDevice_GetUsagePairs(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetPrimaryUsage( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the PrimaryUsage CFString for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	CFStringRef - the PrimaryUsage CFString for this device
-	//
-	
+	//! @function IOHIDDevice_GetPrimaryUsage( inIOHIDDeviceRef )
+	//! @brief Get the PrimaryUsage \c uint32_t for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return The PrimaryUsage CFString for this device.
 	extern uint32_t IOHIDDevice_GetPrimaryUsage(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetPrimaryUsagePage( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the PrimaryUsagePage CFString for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	CFStringRef - the PrimaryUsagePage CFString for this device
-	//
-	
+	//! @function IOHIDDevice_GetPrimaryUsagePage( inIOHIDDeviceRef )
+	//! @brief Get the PrimaryUsagePage \c uint32_t for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return the PrimaryUsagePage CFString for this device.
 	extern uint32_t IOHIDDevice_GetPrimaryUsagePage(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetMaxInputReportSize( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the MaxInputReportSize for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	long - the MaxInputReportSize for this device
-	//
-	
+	//! @function IOHIDDevice_GetMaxInputReportSize( inIOHIDDeviceRef )
+	//! @brief Get the MaxInputReportSize for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return the MaxInputReportSize for this device.
 	extern long IOHIDDevice_GetMaxInputReportSize(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetMaxOutputReportSize( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the MaxOutputReportSize for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	long - the MaxOutputReportSize for this device
-	//
-	
+	//! @function IOHIDDevice_GetMaxOutputReportSize( inIOHIDDeviceRef )
+	//! @brief Get the MaxOutputReportSize for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return the MaxOutputReportSize for this device.
 	extern long IOHIDDevice_GetMaxOutputReportSize(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetMaxFeatureReportSize( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the MaxFeatureReportSize for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	long - the MaxFeatureReportSize for this device
-	//
-	
+	//! @function IOHIDDevice_GetMaxFeatureReportSize( inIOHIDDeviceRef )
+	//! @brief get the MaxFeatureReportSize for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return the MaxFeatureReportSize for this device.
 	extern long IOHIDDevice_GetMaxFeatureReportSize(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetReportInterval( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the ReportInterval for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	long - the ReportInterval for this device
-	//
-	
+	//! @function IOHIDDevice_GetReportInterval( inIOHIDDeviceRef )
+	//! @brief Get the ReportInterval for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return the ReportInterval for this device.
 	extern long IOHIDDevice_GetReportInterval(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetQueue( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the Queue for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	IOHIDQueueRef - the Queue for this device
-	//
-	
+	//! @function IOHIDDevice_GetQueue( inIOHIDDeviceRef )
+	//! @brief Get the Queue for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return the Queue for this device.
 	extern IOHIDQueueRef IOHIDDevice_GetQueue(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_SetQueue( inIOHIDDeviceRef, inQueueRef )
-	//
-	// Purpose:	Set the Queue for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//			inQueueRef - the Queue
-	//
-	// Returns:	nothing
-	//
-	
+	//! @function IOHIDDevice_SetQueue( inIOHIDDeviceRef, inQueueRef )
+	//! @brief Set the Queue for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @param inQueueRef The Queue.
 	extern void IOHIDDevice_SetQueue(IOHIDDeviceRef inIOHIDDeviceRef, IOHIDQueueRef inQueueRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_GetTransaction( inIOHIDDeviceRef )
-	//
-	// Purpose:	get the Transaction for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//
-	// Returns:	IOHIDTransactionRef - the Transaction for this device
-	//
-	
+	//! @function IOHIDDevice_GetTransaction( inIOHIDDeviceRef )
+	//! @brief Get the Transaction for this device.
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @return the Transaction for this device.
 	extern IOHIDTransactionRef IOHIDDevice_GetTransaction(IOHIDDeviceRef inIOHIDDeviceRef);
 	
-	//*************************************************************************
-	//
-	// IOHIDDevice_SetTransaction( inIOHIDDeviceRef, inTransactionRef )
-	//
-	// Purpose:	Set the Transaction for this device
-	//
-	// Inputs:  inIOHIDDeviceRef - the IDHIDDeviceRef for this device
-	//			inTransactionRef - the Transaction
-	//
-	// Returns:	nothing
-	//
-	
+	//! @function IOHIDDevice_SetTransaction( inIOHIDDeviceRef, inTransactionRef )
+	//! @brief Set the Transaction for this device
+	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
+	//! @param inTransactionRef The Transaction.
 	extern void IOHIDDevice_SetTransaction(IOHIDDeviceRef inIOHIDDeviceRef, IOHIDTransactionRef inTransactionRef);
 
 CF_IMPLICIT_BRIDGING_DISABLED
