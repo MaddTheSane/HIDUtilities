@@ -471,7 +471,7 @@ Boolean IOHIDElement_GetLongProperty(IOHIDElementRef inElementRef, CFStringRef i
 		// if this is a number
 		if ( CFNumberGetTypeID() == CFGetTypeID(tCFTypeRef) ) {
 			// get it's value
-			result = CFNumberGetValue( (CFNumberRef) tCFTypeRef, kCFNumberSInt32Type, outValue );
+			result = CFNumberGetValue( (CFNumberRef) tCFTypeRef, kCFNumberLongType, outValue );
 		}
 	}
 	
@@ -492,7 +492,7 @@ Boolean IOHIDElement_GetLongProperty(IOHIDElementRef inElementRef, CFStringRef i
 //
 
 void IOHIDElement_SetLongProperty(IOHIDElementRef inElementRef, CFStringRef inKey, long inValue) {
-	CFNumberRef tCFNumberRef = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &inValue);
+	CFNumberRef tCFNumberRef = CFNumberCreate(kCFAllocatorDefault, kCFNumberLongType, &inValue);
 	if ( tCFNumberRef ) {
 		IOHIDElementSetProperty(inElementRef, inKey, tCFNumberRef);
 		CFRelease(tCFNumberRef);

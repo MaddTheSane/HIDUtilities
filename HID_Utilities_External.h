@@ -75,7 +75,7 @@ typedef void *IOHIDElementCookie;
 
 // Device and Element Interfaces
 
-enum HIDElementTypeMask {
+typedef CF_OPTIONS(UInt32, HIDElementTypeMask) {
 	kHIDElementTypeInput = 1 << 1,
 	kHIDElementTypeOutput = 1 << 2,
 	kHIDElementTypeFeature = 1 << 3,
@@ -83,7 +83,6 @@ enum HIDElementTypeMask {
 	kHIDElementTypeIO = kHIDElementTypeInput | kHIDElementTypeOutput | kHIDElementTypeFeature,
 	kHIDElementTypeAll = kHIDElementTypeIO | kHIDElementTypeCollection
 };
-typedef enum HIDElementTypeMask HIDElementTypeMask;
 
 // ==================================
 
@@ -143,7 +142,7 @@ extern void HIDReleaseDeviceList(void);
 extern void HIDRebuildDevices(void);
 
 // does a device list exist
-extern unsigned char HIDHaveDeviceList(void);
+extern Boolean HIDHaveDeviceList(void);
 
 // how many HID devices have been found
 // returns 0 if no device list exist
@@ -238,7 +237,7 @@ extern int  HIDReleaseAllDeviceQueues(void);
 
 // returns true if an event is avialable for the element and fills out *pHIDEvent structure, returns false otherwise
 // pHIDEvent is a poiner to a IOHIDEventStruct, using void here for compatibility, users can cast a required
-extern unsigned char HIDGetEvent(IOHIDDeviceRef inIOHIDDeviceRef, IOHIDValueRef *pIOHIDValueRef);
+extern Boolean HIDGetEvent(IOHIDDeviceRef inIOHIDDeviceRef, IOHIDValueRef *pIOHIDValueRef);
 
 // ==================================
 
@@ -260,7 +259,7 @@ typedef struct HID_info_struct {
 	// elements
 	struct {
 		uint32_t usagePage, usage;
-		int minReport, maxReport;
+		CFIndex minReport, maxReport;
 		IOHIDElementCookie cookie; // always 32 bits
 	} element;
 }HID_info_rec, *HID_info_ptr;

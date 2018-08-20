@@ -60,7 +60,7 @@ static IOReturn HIDCreateQueue(IOHIDDeviceRef inIOHIDDeviceRef) {
 			assert( IOHIDQueueGetTypeID() == CFGetTypeID(tIOHIDQueueRef) );
 		} else {
 			tIOHIDQueueRef = IOHIDQueueCreate(kCFAllocatorDefault, inIOHIDDeviceRef, kDeviceQueueSize, kIOHIDOptionsTypeNone);
-			if ( tIOHIDQueueRef ) { // did that work
+			if ( !tIOHIDQueueRef ) { // did that work
 				HIDReportErrorNum("Failed to create queue via create", result);
 			} else {
 				result = kIOReturnSuccess;
@@ -332,7 +332,7 @@ IOReturn HIDReleaseAllDeviceQueues(void) {
 // returns true if an event is avialable for the element and fills out *pHIDEvent structure, returns false otherwise
 // Note: kIOReturnUnderrun returned from getNextEvent indicates an empty queue not an error condition
 // Note: application should pass in a pointer to a IOHIDEventStruct cast to a void (for CFM compatibility)
-unsigned char HIDGetEvent(IOHIDDeviceRef inIOHIDDeviceRef, IOHIDValueRef *pIOHIDValueRef) {
+Boolean HIDGetEvent(IOHIDDeviceRef inIOHIDDeviceRef, IOHIDValueRef *pIOHIDValueRef) {
 	if ( inIOHIDDeviceRef ) {
 		IOHIDQueueRef tIOHIDQueueRef = IOHIDDevice_GetQueue(inIOHIDDeviceRef);
 		if ( tIOHIDQueueRef ) {

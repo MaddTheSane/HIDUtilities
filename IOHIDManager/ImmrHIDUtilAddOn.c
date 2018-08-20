@@ -77,6 +77,8 @@ io_service_t AllocateHIDObjectFromIOHIDDeviceRef(IOHIDDeviceRef inIOHIDDeviceRef
 				// that matches.  This way we don't have to do the whole iteration dance to look at each
 				// device that matches.  This is a new API in 10.2
 				result = IOServiceGetMatchingService(kIOMasterPortDefault, matchingDict);
+			} else {
+				CFRelease(matchingDict);
 			}
 			
 			// Note: We're not leaking the matchingDict.

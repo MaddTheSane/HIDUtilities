@@ -154,6 +154,10 @@ unsigned char HIDConfigureSingleDeviceAction(IOHIDDeviceRef inIOHIDDeviceRef, IO
 		CFRelease(elementCFArrayRef);
 	}                               // if ( elementCFArrayRef )
 	// return device and element moved
+	if (saveValueArray) {
+		free(saveValueArray);
+		saveValueArray = NULL;
+	}
 	if ( found ) {
 		return (1);
 	} else {
@@ -348,6 +352,10 @@ Boolean HIDConfigureAction(IOHIDDeviceRef *outIOHIDDeviceRef, IOHIDElementRef *o
 		}
 	}   //	while ( !found )
 	// return device and element moved
+	if (saveValueArray) {
+		free(saveValueArray);
+		saveValueArray = NULL;
+	}
 	if ( !found ) {
 		*outIOHIDDeviceRef = NULL;
 		*outIOHIDElementRef = NULL;
@@ -376,13 +384,13 @@ Boolean HIDSaveElementPref(const CFStringRef inKeyCFStringRef,
 	Boolean success = FALSE;
 	if ( inKeyCFStringRef && inAppCFStringRef && inIOHIDDeviceRef && inIOHIDElementRef ) {
 		long vendorID = IOHIDDevice_GetVendorID(inIOHIDDeviceRef);
-		require(vendorID, Oops);
+		__Require(vendorID, Oops);
 		
 		long productID = IOHIDDevice_GetProductID(inIOHIDDeviceRef);
-		require(productID, Oops);
+		__Require(productID, Oops);
 		
 		long locID = IOHIDDevice_GetLocationID(inIOHIDDeviceRef);
-		require(locID, Oops);
+		__Require(locID, Oops);
 		
 		uint32_t usagePage = IOHIDDevice_GetUsagePage(inIOHIDDeviceRef);
 		uint32_t usage = IOHIDDevice_GetUsage(inIOHIDDeviceRef);
@@ -391,16 +399,16 @@ Boolean HIDSaveElementPref(const CFStringRef inKeyCFStringRef,
 			usage = IOHIDDevice_GetPrimaryUsage(inIOHIDDeviceRef);
 		}
 		
-		require(usagePage && usage, Oops);
+		__Require(usagePage && usage, Oops);
 		
 		uint32_t usagePageE = IOHIDElementGetUsagePage(inIOHIDElementRef);
 		uint32_t usageE = IOHIDElementGetUsage(inIOHIDElementRef);
 		IOHIDElementCookie eleCookie = IOHIDElementGetCookie(inIOHIDElementRef);
 		
 		CFStringRef prefCFStringRef = CFStringCreateWithFormat(kCFAllocatorDefault, NULL,
-															   CFSTR("d:{v:%ld, p:%ld, l:%ld, p:%ld, u:%ld}, e:{p:%ld, u:%ld, c:%ld}"),
-															   vendorID, productID, locID, usagePage, usage, 
-															   usagePageE, usageE, eleCookie);
+															   CFSTR("d:{v:%ld, p:%ld, l:%ld, p:%u, u:%u}, e:{p:%u, u:%u, c:%u}"),
+															   vendorID, productID, locID, usagePage, usage,
+															   usagePageE, usageE, (uint32_t)eleCookie);
 		if ( prefCFStringRef ) {
 			CFPreferencesSetAppValue(inKeyCFStringRef, prefCFStringRef, inAppCFStringRef);
 			CFRelease(prefCFStringRef);
@@ -441,9 +449,10 @@ Boolean HIDRestoreElementPref(CFStringRef      inKeyCFStringRef,
 				                        kCFStringEncodingUTF8 ) )
 				{
 					HID_info_rec searchHIDInfo;
+					uint32_t eleCookie;
 					
 					int count = sscanf(buffer,
-					                   "d:{v:%d, p:%d, l:%d, p:%d, u:%d}, e:{p:%d, u:%d, c:%ld}",
+					                   "d:{v:%d, p:%d, l:%d, p:%d, u:%d}, e:{p:%d, u:%d, c:%d}",
 					                   &searchHIDInfo.device.vendorID,
 					                   &searchHIDInfo.device.productID,
 					                   &searchHIDInfo.device.locID,
@@ -451,7 +460,8 @@ Boolean HIDRestoreElementPref(CFStringRef      inKeyCFStringRef,
 					                   &searchHIDInfo.device.usage,
 					                   &searchHIDInfo.element.usagePage,
 					                   &searchHIDInfo.element.usage,
-					                   (long *) &searchHIDInfo.element.cookie);
+									   &eleCookie);
+					searchHIDInfo.element.cookie = (IOHIDElementCookie)eleCookie;
 					if ( 8 == count ) { // if we found all eight parameters…
 						// and can find a device & element that matches these…
 						if ( HIDFindDeviceAndElement(&searchHIDInfo, outIOHIDDeviceRef, outIOHIDElementRef) ) {

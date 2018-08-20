@@ -61,8 +61,8 @@
 static SInt32 hu_SaveToXMLFile(CFPropertyListRef inCFPRef, CFURLRef inCFURLRef);
 static SInt32 hu_XMLSave(CFPropertyListRef inCFPropertyListRef, CFStringRef inResourceName, CFStringRef inResourceExtension);
 #endif
-static CFPropertyListRef hu_LoadFromXMLFile(CFURLRef inCFURLRef);
-static CFPropertyListRef hu_XMLLoad(CFStringRef inResourceName, CFStringRef inResourceExtension);
+static CFPropertyListRef hu_LoadFromXMLFile(CFURLRef inCFURLRef) CF_RETURNS_RETAINED;
+static CFPropertyListRef hu_XMLLoad(CFStringRef inResourceName, CFStringRef inResourceExtension) CF_RETURNS_RETAINED;
 
 static Boolean hu_XMLSearchForElementNameByCookie(long inVendorID, long inProductID, IOHIDElementCookie inCookie, char *outCStr);
 static Boolean hu_XMLSearchForElementNameByUsage(long inVendorID, long inProductID, long inUsagePage, long inUsage, char *outCStr);
@@ -814,7 +814,7 @@ static Boolean hu_XMLSearchForElementNameByCookie(long inVendorID, long inProduc
 							// CFShow( productCFStringRef );
 						}
 						
-						cookieKeyCFStringRef = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("%ld"), inCookie);
+						cookieKeyCFStringRef = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("%u"), (uint32_t)inCookie);
 						if ( CFDictionaryGetValueIfPresent(productCFDictionaryRef, cookieKeyCFStringRef,
 						                                   (const void **) &cookieCFStringRef) )
 						{
