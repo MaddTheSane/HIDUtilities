@@ -490,20 +490,21 @@ static SInt32 hu_SaveToXMLFile(CFPropertyListRef inCFPRef, CFURLRef inCFURLRef) 
  * Returns: CFPropertyListRef - the data
  */
 static CFPropertyListRef hu_LoadFromXMLFile(CFURLRef inCFURLRef) {
-	CFDataRef xmlCFDataRef;
 	CFPropertyListRef myCFPropertyListRef = NULL;
 	
-	// Read the XML file.
-	SInt32 error;
-	if ( CFURLCreateDataAndPropertiesFromResource(kCFAllocatorDefault, inCFURLRef, &xmlCFDataRef, NULL, NULL, &error) ) {
-		CFStringRef errorString;
-		// Reconstitute the dictionary using the XML data.
-		myCFPropertyListRef = CFPropertyListCreateFromXMLData(kCFAllocatorDefault,
-		                                                      xmlCFDataRef,
-		                                                      kCFPropertyListImmutable,
-		                                                      &errorString);
-		// Release the XML data
-		CFRelease(xmlCFDataRef);
+	// Open the XML stream.
+	CFReadStreamRef xmlCFReadStreamRef = CFReadStreamCreateWithFile(kCFAllocatorDefault, inCFURLRef);
+	if (xmlCFReadStreamRef) {
+		CFErrorRef errorObj;
+		// Reconstitute the dictionary using the XML stream.
+		myCFPropertyListRef = CFPropertyListCreateWithStream(kCFAllocatorDefault,
+															 xmlCFReadStreamRef,
+															 0,
+															 kCFPropertyListImmutable,
+															 NULL,
+															 &errorObj);
+		// Release the XML stream
+		CFRelease(xmlCFReadStreamRef);
 	}
 	
 	return (myCFPropertyListRef);
