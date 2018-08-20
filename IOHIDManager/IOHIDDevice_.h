@@ -132,7 +132,7 @@ CF_IMPLICIT_BRIDGING_ENABLED
 	extern CFStringRef IOHIDDevice_GetManufacturer(IOHIDDeviceRef inIOHIDDeviceRef);
 	
 	//! @function IOHIDDevice_GetProduct( inIOHIDDeviceRef )
-	//! @brief Tet the Product \c CFString for this device.
+	//! @brief Get the Product \c CFString for this device.
 	//! @param inIOHIDDeviceRef The \c IODHIDDeviceRef for this device.
 	//! @return the Product CFString for this device.
 	extern CFStringRef IOHIDDevice_GetProduct(IOHIDDeviceRef inIOHIDDeviceRef);
