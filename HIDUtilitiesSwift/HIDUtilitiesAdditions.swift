@@ -8,9 +8,11 @@
 import Foundation
 import HIDUtilities
 
-//HIDBuildMultiDeviceList(_ inUsagePages: UnsafePointer<UInt32>!, _ inUsages: UnsafePointer<UInt32>!, _ inNumDeviceTypes: Int32) -> Bool
-
 public func HIDBuildMultiDeviceList(usages: [(usagePage: UInt32, usage: UInt32)]) -> Bool {
-	
-	return false
+	guard let count = Int32(exactly: usages.count) else {
+		return false
+	}
+	let inUsagePages = usages.map({$0.usagePage})
+	let inUsages = usages.map({$0.usage})
+	return HIDBuildMultiDeviceList(inUsagePages, inUsages, count)
 }

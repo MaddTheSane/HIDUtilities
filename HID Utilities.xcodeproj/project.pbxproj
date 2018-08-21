@@ -23,6 +23,8 @@
 
 /* Begin PBXBuildFile section */
 		553F752A208BE7CC00CF8872 /* HIDUtilitiesSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 553F7528208BE7CB00CF8872 /* HIDUtilitiesSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		557086CB212B76A80065B854 /* IOHIDElement_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557086CA212B76A80065B854 /* IOHIDElement_.swift */; };
+		557086CD212B799F0065B854 /* IOHIDDevice_.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557086CC212B799F0065B854 /* IOHIDDevice_.swift */; };
 		55F77293208BE81900191A0B /* HIDUtilitiesAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F77292208BE81900191A0B /* HIDUtilitiesAdditions.swift */; };
 		55F77296208BE85900191A0B /* HIDUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D07F2C80486CC7A007CD1D0 /* HIDUtilities.framework */; };
 		8D07F2C00486CC7A007CD1D0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
@@ -90,6 +92,8 @@
 		553F7528208BE7CB00CF8872 /* HIDUtilitiesSwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HIDUtilitiesSwift.h; sourceTree = "<group>"; };
 		553F7529208BE7CC00CF8872 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		556F2A6A1D20910B00335DF9 /* HID.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = HID.modulemap; sourceTree = "<group>"; };
+		557086CA212B76A80065B854 /* IOHIDElement_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOHIDElement_.swift; sourceTree = "<group>"; };
+		557086CC212B799F0065B854 /* IOHIDDevice_.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOHIDDevice_.swift; sourceTree = "<group>"; };
 		55F77292208BE81900191A0B /* HIDUtilitiesAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HIDUtilitiesAdditions.swift; sourceTree = "<group>"; };
 		8D07F2C70486CC7A007CD1D0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D07F2C80486CC7A007CD1D0 /* HIDUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HIDUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,6 +215,8 @@
 			isa = PBXGroup;
 			children = (
 				55F77292208BE81900191A0B /* HIDUtilitiesAdditions.swift */,
+				557086CC212B799F0065B854 /* IOHIDDevice_.swift */,
+				557086CA212B76A80065B854 /* IOHIDElement_.swift */,
 				553F7528208BE7CB00CF8872 /* HIDUtilitiesSwift.h */,
 				553F7529208BE7CC00CF8872 /* Info.plist */,
 			);
@@ -381,7 +387,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				557086CB212B76A80065B854 /* IOHIDElement_.swift in Sources */,
 				55F77293208BE81900191A0B /* HIDUtilitiesAdditions.swift in Sources */,
+				557086CD212B799F0065B854 /* IOHIDDevice_.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
